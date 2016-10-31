@@ -144,5 +144,5 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
 将代码打包，以`学号_姓名.文件类型`的格式命名，如`13302010039_童仲毅.zip`。上传至FTP：
 
 ```json
-ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab5
+ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab7
 ```
