@@ -25,11 +25,41 @@
 ### 要求
 
 - 实现基本的“井字棋”的游戏逻辑（可以参考最后的[起始代码](#起始代码)）。
-- 正确处理非法输入、终局判断。
+- 正确处理非法输入。
 - 使用方法分离不同作用的代码块。
 - 使用**二维数组**保存棋盘状态。
 - 实现悔棋与撤销悔棋。
 - 使用良好的代码风格和适当的注释。
+
+## 起始代码
+
+下面的起始代码为助教提供的 lab5 参考实现。你可以在这份代码的基础上进行修改，以完成本次 lab 提出的要求；也可以按照自己的编码习惯独立完成。
+
+```java
+import java.util.Scanner;
+
+public class TicTacToe {
+
+    public static void main(String[] args) {
+        char[][] board = {{'.', '.', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
+        boolean player = true;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(board[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.print("Next move: ");
+            int nextPosition = scanner.nextInt();
+            board[nextPosition / 3][nextPosition % 3] = (player) ? 'O' : 'X';
+            player = !player;
+        }
+    }
+}
+```
+
 
 ## 代码风格和注释
 
@@ -109,39 +139,10 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
     if (...) {}
     ```
 
-## 起始代码
-
-下面的起始代码为助教提供的 lab5 参考实现。你可以在这份代码的基础上进行修改，以完成本次 lab 提出的要求；也可以按照自己的编码习惯独立完成。
-
-```java
-import java.util.Scanner;
-
-public class TicTacToe {
-
-    public static void main(String[] args) {
-        char[][] board = {{'.', '.', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
-        boolean player = true;
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    System.out.print(board[i][j]);
-                }
-                System.out.println();
-            }
-            System.out.print("Next move: ");
-            int nextPosition = scanner.nextInt();
-            board[nextPosition / 3][nextPosition % 3] = (player) ? 'O' : 'X';
-            player = !player;
-        }
-    }
-}
-```
-
 ## 提交
 
 将代码打包，以`学号_姓名.文件类型`的格式命名，如`13302010039_童仲毅.zip`。上传至FTP：
 
 ```json
-ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab5
+ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab7
 ```
