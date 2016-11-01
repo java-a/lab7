@@ -25,10 +25,9 @@
 ### 要求
 
 - 实现基本的“井字棋”的游戏逻辑（可以参考最后的[起始代码](#起始代码)）。
-- 正确处理非法输入。
 - 使用方法分离不同作用的代码块。
 - 使用**二维数组**保存棋盘状态。
-- 实现悔棋与撤销悔棋。
+- 实现悔棋与撤销悔棋（优先实现悔棋，若时间上来不及撤销悔棋可留到课后）。
 - 使用良好的代码风格和适当的注释。
 
 ## 起始代码
@@ -60,6 +59,41 @@ public class TicTacToe {
 }
 ```
 
+## Tips
+
+1. 棋盘历史记录的保存：由于我们使用二维数组来保存棋盘状态，因此我们可以使用更高一维的数组来表示所有棋盘的历史状态。在这里`boardHistory[0]`表示棋盘初始状态，`boardHistory[3]`表示进行到第3步时的状态。
+
+   ```java
+   char[][] board = {{'.', '.', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
+   char[][][] boardHistory = new char[10][][];
+   ```
+
+2. 多维数组的复制：可以通过循环来实现多维数组的深复制。
+
+   ```java
+   private static char[][] copyArray(char[][] array) {
+           char[][] newArray = new char[3][3];
+           for (int i = 0; i < 3; i++) {
+               for (int j = 0; j < 3; j++) {
+                   newArray[i][j] = array[i][j];
+               }
+           }
+           return newArray;
+   }
+   ```
+
+   用法：
+
+   ```java
+   board = TicTacToe.copyArray(boardHistory[nextStep]);
+   ```
+
+3. 棋盘状态的记录：我们需要两个变量来分别记录当前步数`currentStep`和可以通过撤销悔棋回到的最大步数`lastStep`。
+
+   - 初始状态时，`currentStep`与`lastStep`相等为0。
+   - 执行悔棋时，若即将回到的步数`nextStep`是否大于等于0则可以执行悔棋，将`currentStep`修改为`nextStep`。
+   - 执行撤销悔棋时，若即将回到的步数`nextStep`是否小于等于`lastStep`则可以执行撤销悔棋，将`currentStep`修改为`nextStep`。
+   - 执行走棋时，清空`currentStep`到`lastStep`之间的棋盘状态。随后`currentStep`自增，`lastStep`与`currentStep`相等。
 
 ## 代码风格和注释
 
@@ -78,13 +112,14 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
 
   PJ 中的注释可以参照下面的格式。
 
-  - 文件开头的注释。IntelliJ在新建一个Java文件后会自动生成一段注释。这段注释中应包括作者、创建时间和该文件的主要内容。
+  -  文件开头的注释。IntelliJ在新建一个Java文件后会自动生成一段注释。这段注释中应包括作者、创建时间和该文件的主要内容。
 
-    ```java
-    /**
+     ```java
+     /**
      * Created by Zhongyi on 01/11/2016.
      * This file contains.../ is used to ...
      */
+     ```
     ```
 
   - 类前的注释。表明类的职责。
@@ -99,18 +134,18 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
     public class Object {}
     ```
 
-  - 类中域变量的注释。解释该变量的作用。
+  -  类中域变量的注释。解释该变量的作用。
 
-    ```java
-    /** The value is used for character storage. */
+     ```java
+     /** The value is used for character storage. */
 
-     private char value[];
-    ```
+      private char value[];
+     ```
 
-  - 方法前的注释。表明方法的作用，描述参数和返回值的含义。实例中的`Examples`和`@exception`视情况可选。
+  -  方法前的注释。表明方法的作用，描述参数和返回值的含义。实例中的`Examples`和`@exception`视情况可选。
 
-    ```java
-    /**
+     ```java
+      /**
      * Returns a new string that is a substring of this string. The
      * substring begins with the character at the specified index and
      * extends to the end of this string.
@@ -126,6 +161,7 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
      *             <code>beginIndex</code> is negative or larger than the
      *             length of this <code>String</code> object.
      */
+     ```
 
     public String substring(int beginIndex) {
     	return substring(beginIndex, count);
