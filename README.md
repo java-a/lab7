@@ -1,10 +1,13 @@
 # lab7
 
 > 使用二维数组实现 lab5 的“井字棋”小游戏，实现悔棋和撤销悔棋，并了解注释的书写。
+>
+> Deadline：`2016.11.02 23:59:59(UTC+8)`。
 
 ## 问题描述
 
 井字棋的规则详见 lab5 的文档： https://github.com/java-a/lab5 。
+
 
 ### 约定
 
@@ -21,6 +24,8 @@
 - 玩家输入n个`u`（undo），回到n步之前的状态。如`u`表示回到上一步的状态，`uuu`表示回到三步前的状态。注意，悔棋后落子的玩家可能会发生变化（如悔棋1步后当前玩家可能从`X`变为`O`）。
 
 - 玩家输入n个`r`（redo），撤销n步悔棋。如`r`表示回到下一步的状态，`rrr`表示回到三步后的状态。注意，撤销悔棋后落子的玩家可能会发生变化（如撤销悔棋1步后当前玩家可能从`X`变为`O`）。另外，可能会出现无法撤销悔棋的情况，如试图撤销的步数超过之前悔棋的步数，或上一次落子后尚未悔棋。
+
+- 输入不要求合法性判断，仅考虑上述三种情况。可以在多次输入中连续悔棋、撤销悔棋，或混合使用。
 
 ### 要求
 
@@ -88,7 +93,7 @@ public class TicTacToe {
    board = TicTacToe.copyArray(boardHistory[nextStep]);
    ```
 
-3. 棋盘状态的记录：我们需要两个变量来分别记录当前步数`currentStep`和可以通过撤销悔棋回到的最大步数`lastStep`。
+3. 棋盘状态的记录方法（供参考）：使用两个变量来分别记录当前步数`currentStep`和可以通过撤销悔棋回到的最大步数`lastStep`。
 
    - 初始状态时，`currentStep`与`lastStep`相等为0。
    - 执行悔棋时，若即将回到的步数`nextStep`是否大于等于0则可以执行悔棋，将`currentStep`修改为`nextStep`。
@@ -120,7 +125,6 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
      * This file contains.../ is used to ...
      */
      ```
-    ```
 
   - 类前的注释。表明类的职责。
 
@@ -130,18 +134,9 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
      * Every class has <code>Object</code> as a superclass. All objects,
      * including arrays, implement the methods of this class.
      */
-
     public class Object {}
     ```
-
-  -  类中域变量的注释。解释该变量的作用。
-
-     ```java
-     /** The value is used for character storage. */
-
-      private char value[];
-     ```
-
+    
   -  方法前的注释。表明方法的作用，描述参数和返回值的含义。实例中的`Examples`和`@exception`视情况可选。
 
      ```java
@@ -161,11 +156,9 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
      *             <code>beginIndex</code> is negative or larger than the
      *             length of this <code>String</code> object.
      */
-     ```
-
-    public String substring(int beginIndex) {
-    	return substring(beginIndex, count);
-    }
+     public String substring(int beginIndex) {
+     	return substring(beginIndex, count);
+     }
     ```
 
   - 代码块中的注释。此处的注释应该用于阐述一段代码**为什么**要这样写，而不是在做什么。当且仅当代码本身无法让读者一眼明白在做什么时，才需要解释代码的作用。
@@ -182,12 +175,14 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
 
 ## 提交
 
+Deadline延长至`2016.11.02 23:59:59(UTC+8)`。迟交酌情扣分。
+
 将代码打包，以`学号_姓名.文件类型`的格式命名，如`13302010039_童仲毅.zip`。上传至FTP：
 
 ```json
 ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab7
 ```
-Lab6的Code Review文档请上传至
+Lab6的Code Review文档请上传至：
 
 ```json
 ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/Code Review/lab6
