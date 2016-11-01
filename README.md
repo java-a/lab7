@@ -174,6 +174,11 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
     // Check if the input is valid
     if (...) {}
     ```
+    
+## Code Review
+1. [lab5 Code Review](https://github.com/java-a/lab5/issues/2)
+2. [lab6 Code Review](https://github.com/java-a/lab6/issues/4)
+   请参考链接中的提示，完成相关文档。
 
 ## 提交
 
@@ -181,4 +186,9 @@ PJ 约定的代码风格详见 lab3 中的 [Java Style Guide](https://github.com
 
 ```json
 ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/lab7
+```
+Lab6的Code Review文档请上传至
+
+```json
+ftp://10.132.141.33/classes/16/161 程序设计A （戴开宇）/WORK_UPLOAD/Code Review/lab6
 ```
