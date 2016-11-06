@@ -9,36 +9,71 @@
 ## 样例代码
 
 ```java
+/*
+ * Created by Zhongyi on 06/11/2016.
+ * TicTacToe with multiple-step undo and redo.
+ * Example code for Lab 7.
+ */
+
 import java.util.Scanner;
 
+/**
+ * Class TicTacToe is the entry point of the game.
+ */
 public class TicTacToe {
 
     public static void main(String[] args) {
         char[][][] boardHistory = new char[10][][];
+        // What are these variables used for? Attach your answer as part of the code review.
         int currentStep = 0, lastStep = 0;
 
         Scanner scanner = new Scanner(System.in);
+        // Initial state of the game, as step 0
         boardHistory[0] = new char[][]{{'.', '.', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
 
+        /*
+        * In an legal game, there shall be up to nine steps.
+        * Considering the initial state, the step varies from 0 to 9, inclusively.
+        */
         while (currentStep <= 9) {
             printBoard(boardHistory[currentStep]);
 
             String nextMove = scanner.next();
 
+            /*
+            * If the input is an undo or redo command, its length is the steps to jump.
+            * We can calculate the nextStep based on that.
+            * */
             int nextStep = currentStep - nextMove.length();
             if (nextMove.charAt(0) == 'r') {
+                // Redo
                 currentStep = redo(currentStep, lastStep, nextStep);
             } else if (nextMove.charAt(0) == 'u') {
+                // Undo
                 currentStep = undo(currentStep, nextStep);
             } else {
+                // Drop a new piece.
+                // Parse the input string to integer to get the position to drop the piece.
                 int nextPosition = Integer.parseInt(nextMove);
+                // Update lastStep as long as currentStep
                 lastStep = ++currentStep;
+                // Store the current state into boardHistory,
+                // by deep copying the previous state and substitute the position with new piece.
                 boardHistory[currentStep] = copyBoard(boardHistory[currentStep - 1]);
                 boardHistory[currentStep][nextPosition / 3][nextPosition % 3] = (currentStep % 2 != 0) ? 'O' : 'X';
             }
         }
     }
 
+    /**
+     * Redo from currentStep to nextStep.
+     * Throw an error message to stdout if the move is illegal.
+     *
+     * @param currentStep the step to jump from
+     * @param nextStep    the step to jump to
+     * @param lastStep    the maximum step to jump
+     * @return update currentStep to nextStep, if the move is legal; or change nothing
+     */
     private static int redo(int currentStep, int lastStep, int nextStep) {
         if (nextStep <= lastStep) {
             currentStep = nextStep;
@@ -48,6 +83,14 @@ public class TicTacToe {
         return currentStep;
     }
 
+    /**
+     * Undo from currentStep to nextStep.
+     * Throw an error message to stdout if the move is illegal.
+     *
+     * @param currentStep the step to jump from
+     * @param nextStep    the step to jump to
+     * @return update currentStep to nextStep, if the move is legal; or change nothing
+     */
     private static int undo(int currentStep, int nextStep) {
         if (nextStep >= 0) {
             currentStep = nextStep;
@@ -57,6 +100,10 @@ public class TicTacToe {
         return currentStep;
     }
 
+    /**
+     * Iterate over the two dimensional array, to print the board.
+     * Then, prompt a message to ask user for the next input.
+     */
     private static void printBoard(char[][] board) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -67,6 +114,9 @@ public class TicTacToe {
         System.out.print("Next move: ");
     }
 
+    /**
+     * Use a nested iteration to deep copy a 2D array, i.e. the board.
+     */
     private static char[][] copyBoard(char[][] array) {
         char[][] newArray = new char[3][3];
         for (int i = 0; i < 3; i++) {
