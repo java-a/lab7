@@ -49,7 +49,49 @@ public class TicTacToe {
                 // Redo
                 currentStep = redo(currentStep, lastStep, nextStep);
             } else if (nextMove.charAt(0) == 'u') {
+/*
+ * Created by Zhongyi on 06/11/2016.
+ * TicTacToe with multiple-step undo and redo.
+ * Example code for Lab 7.
+ */
+
+import java.util.Scanner;
+
+/**
+ * Class TicTacToe is the entry point of the game.
+ */
+public class TicTacToe {
+
+    public static void main(String[] args) {
+        char[][][] boardHistory = new char[10][][];
+        // What are these variables used for? Attach your answer as part of the code review.
+        int currentStep = 0, lastStep = 0;
+
+        Scanner scanner = new Scanner(System.in);
+        // Initial state of the game, as step 0
+        boardHistory[0] = new char[][]{{'.', '.', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
+
+        /*
+        * In an legal game, there shall be up to nine steps.
+        * Considering the initial state, the step varies from 0 to 9, inclusively.
+        */
+        while (currentStep <= 9) {
+            printBoard(boardHistory[currentStep]);
+
+            String nextMove = scanner.next();
+
+            /*
+            * If the input is an undo or redo command, its length is the steps to jump.
+            * We can calculate the nextStep based on that.
+            * */
+            int nextStep;
+            if (nextMove.charAt(0) == 'r') {
+                // Redo
+                nextStep = currentStep + nextMove.length();
+                currentStep = redo(currentStep, lastStep, nextStep);
+            } else if (nextMove.charAt(0) == 'u') {
                 // Undo
+                nextStep = currentStep - nextMove.length();
                 currentStep = undo(currentStep, nextStep);
             } else {
                 // Drop a new piece.
